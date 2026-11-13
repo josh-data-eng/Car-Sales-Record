@@ -62,3 +62,37 @@ SELECT `Price ($)`
 FROM car_sales_report
 WHERE `Price ($)` BETWEEN 30000 AND 40000
 ORDER BY `Price ($)` ASC;
+SELECT `Body Style`,
+    color
+FROM car_sales_report
+WHERE `Body Style` != 'Hatchback'
+    AND color != 'pale white';
+SELECT `Price ($)`,
+    Model,
+    company
+FROM car_sales_report
+ORDER BY `Price ($)` DESC
+LIMIT 10;
+SELECT Gender,
+    `Price ($)`
+FROM car_sales_report
+WHERE Gender = 'female'
+ORDER BY `Price ($)` ASC
+LIMIT 5;
+SELECT `Customer Name`,
+    `Annual Income`,
+    `Price ($)`
+FROM car_sales_report
+WHERE `Annual Income` BETWEEN 500000 AND 1000000
+    AND `Price ($)` > 40000;
+SELECT MAX(`Price ($)`) AS Highest_Price,
+    MIN(`Price ($)`) AS Lowest_Price
+FROM car_sales_report;
+SELECT MAX(`Annual Income`) AS Top_Income
+FROM car_sales_report
+WHERE gender = 'female';
+SELECT Company,
+    COUNT(*) AS Total_Sold
+FROM car_sales_report
+GROUP BY Company
+ORDER BY Total_Sold DESC;
