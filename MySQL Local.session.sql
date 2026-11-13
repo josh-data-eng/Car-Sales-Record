@@ -62,37 +62,67 @@ SELECT `Price ($)`
 FROM car_sales_report
 WHERE `Price ($)` BETWEEN 30000 AND 40000
 ORDER BY `Price ($)` ASC;
+-- Problem 11: Marketing
 SELECT `Body Style`,
-    color
+    Color
 FROM car_sales_report
-WHERE `Body Style` != 'Hatchback'
-    AND color != 'pale white';
-SELECT `Price ($)`,
+WHERE `Body Style` <> 'Hatchback'
+    AND Color <> 'Pale White';
+-- Problem 12: CEO report
+SELECT Company,
     Model,
-    company
+    `Price ($)`
 FROM car_sales_report
 ORDER BY `Price ($)` DESC
 LIMIT 10;
-SELECT Gender,
+-- Problem 13: Women's campaign
+SELECT Car_id,
+    Company,
+    Model,
     `Price ($)`
 FROM car_sales_report
-WHERE Gender = 'female'
+WHERE Gender = 'Female'
 ORDER BY `Price ($)` ASC
 LIMIT 5;
+-- Problem 14: Luxury targeting
 SELECT `Customer Name`,
     `Annual Income`,
     `Price ($)`
 FROM car_sales_report
 WHERE `Annual Income` BETWEEN 500000 AND 1000000
     AND `Price ($)` > 40000;
-SELECT MAX(`Price ($)`) AS Highest_Price,
-    MIN(`Price ($)`) AS Lowest_Price
+-- Problem 15: Pricing audit
+SELECT MIN(`Price ($)`) AS Lowest_Price,
+    MAX(`Price ($)`) AS Highest_Price
 FROM car_sales_report;
+-- Problem 16: Wealth research
 SELECT MAX(`Annual Income`) AS Top_Income
 FROM car_sales_report
-WHERE gender = 'female';
+WHERE Gender = 'Female';
+-- Problem 17: Brand performance
 SELECT Company,
-    COUNT(*) AS Total_Sold
+    COUNT(Car_id) AS Total_Sold
 FROM car_sales_report
 GROUP BY Company
 ORDER BY Total_Sold DESC;
+-- Problem 18: Regional report
+SELECT Dealer_Region,
+    COUNT(Car_id) AS Total_Sold,
+    MAX(`Price ($)`) AS Highest_Price
+FROM car_sales_report
+GROUP BY Dealer_Region;
+-- Problem 19: Color trends
+SELECT Color,
+    COUNT(Car_id) AS Total_Sold
+FROM car_sales_report
+WHERE `Body Style` = 'SUV'
+GROUP BY Color;
+-- Problem 20: Final challenge
+SELECT `Body Style`,
+    COUNT(Car_id) AS Total_Sold
+FROM car_sales_report
+WHERE Transmission = 'Auto'
+    AND Gender = 'Female'
+GROUP BY `Body Style`
+ORDER BY Total_Sold DESC
+LIMIT 3;
