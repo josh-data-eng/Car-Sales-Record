@@ -126,3 +126,87 @@ WHERE Transmission = 'Auto'
 GROUP BY `Body Style`
 ORDER BY Total_Sold DESC
 LIMIT 3;
+-- MORE GROUP BY PROBLEMS TO PRACTICE
+--Problem 1: Brand revenue. Total money earned per company, highest first.
+SELECT Company,
+    SUM(`Price ($)`) AS Total_Revenue
+FROM car_sales_report
+GROUP BY Company
+ORDER BY Total_Revenue DESC;
+--Problem 2: Body style pricing. Average price per body style, most expensive first.
+SELECT `Body Style`,
+    AVG(`Price ($)`) AS Avg_Price
+FROM car_sales_report
+GROUP BY `Body Style`
+ORDER BY Avg_Price DESC;
+--Problem 3: Transmission split. Number of cars sold per transmission type. Tip: COUNT(Car_id) is the safer habit.
+SELECT Transmission,
+    COUNT(`Price ($)`) AS Total_Cars
+FROM car_sales_report
+GROUP BY Transmission;
+--Problem 4: Gender income. Average annual income per gender.
+SELECT Gender,
+    AVG(`Annual Income`) AS Avg_Income
+FROM car_sales_report
+GROUP BY Gender;
+--Problem 5: Region leaderboard. Total sales per region, top 5 only.
+SELECT Dealer_Region,
+    SUM(`Price ($)`) AS Region_Revenue
+FROM car_sales_report
+GROUP BY Dealer_Region
+ORDER BY Region_Revenue DESC
+LIMIT 5;
+Problem 6: Price range per brand.Lowest
+and highest price per company,
+A to Z.
+SELECT Company,
+    MAX(`Price ($)`) AS Highest_Price,
+    MIN(`Price ($)`) AS Lowest_Price
+FROM car_sales_report
+GROUP BY Company
+ORDER BY Company ASC;
+--Problem 7: Premium color trends. Cars above $30,000, number sold per color, most popular first.
+SELECT Color,
+    COUNT(`Price ($)`) AS Total_Sold
+FROM car_sales_report
+WHERE `Price ($)` > 30000
+GROUP BY Color
+ORDER BY Total_Sold DESC;
+--Problem 8: Brand and body style mix. Number sold per company and body style, sorted by company A to Z.
+SELECT Company,
+    `Body Style`,
+    COUNT(Car_id) AS Total_Sold
+FROM car_sales_report
+GROUP BY Company,
+    `Body Style`
+ORDER BY Company ASC;
+--Problem 9: Black and Red analysis. Average price per company among Black or Red cars, highest first.
+SELECT Company,
+    AVG(`Price ($)`) AS Avg_Price
+FROM car_sales_report
+WHERE Color IN ('Black', 'Red')
+GROUP BY Company
+ORDER BY Avg_Price DESC;
+--Problem 10: Final challenge. Manual cars bought by male customers, number sold and total revenue per body style, top 3 by revenue.
+SELECT `Body Style`,
+    COUNT(Car_id) AS Total_Sold,
+    SUM(`Price ($)`) AS Total_Revenue
+FROM car_sales_report
+WHERE Gender = 'Male'
+    AND Transmission = 'Manual'
+GROUP BY `Body Style`
+ORDER BY Total_Revenue DESC
+LIMIT 3;
+Rules you learned: "how many" means COUNT,
+"total" means SUM,
+and "average" means AVG.The clause order is
+SELECT,
+    FROM,
+    WHERE,
+    GROUP BY,
+    ORDER BY,
+    LIMIT."Top N" needs
+ORDER BY first,
+    then
+LIMIT.Every column in
+SELECT that isn 't inside an aggregate function must also be in GROUP BY. To match several values, use IN (' A ', ' B ') instead of column = ' A ' OR ' B '.
